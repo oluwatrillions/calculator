@@ -36,27 +36,49 @@ assignments.forEach(keys => {
             return;
         dot = false;
         const operator = e.target.innerText
-        if (tempDisplay && totalDisplay) {
+        if (tempDisplay && totalDisplay && nextOperation) {
             computation();
         } else {
             result = parseFloat(totalDisplay)
+            total.innerText = result
         }
+        console.log(result);
+        tempDisplay += (totalDisplay + ' ' + operator) 
+        operations.innerText = tempDisplay
+        total.innerText = ''
+        totalDisplay = ''
+        total.innerText = result
+        nextOperation = operator
         
     })
 })
 
-equal.addEventListener('click', () => {
-    try {
-        total.innerText = eval(operations.innerText)
-        operations.innerText = total.innerText 
-    } catch {
-        operations.innerText = 'Please enter a valid number'
+const computation = () => {
+    if (nextOperation === '/') {
+        result = parseFloat(result) / parseFloat(totalDisplay)
+    } else if (nextOperation === '*') {
+        result = parseFloat(result) * parseFloat(totalDisplay)
+    } else if (nextOperation === '+') {
+        result = parseFloat(result) + parseFloat(totalDisplay)
+    } else {
+        result = parseFloat(result) - parseFloat(totalDisplay)
     }
+};
+
+equal.addEventListener('click', () => {
+    if (!tempDisplay || !totalDisplay)
+        return;
+    dot = false
+    computation()
+    total.innerText = result
 })
 
 clearAll.addEventListener('click', () => {
-    total.textContent = 0
+    total.textContent = ''
     operations.textContent = ''
+    tempDisplay = ""
+    totalDisplay = ''
+    total.innerText = ''
 })
 
 deleteItem.addEventListener('click', () => {
