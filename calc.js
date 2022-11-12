@@ -70,12 +70,20 @@ equal.addEventListener('click', () => {
         return;
     dot = false
     computation()
+    
+    operations.innerText += totalDisplay
+    result = eval(operations.innerText)
+    
     total.innerText = result
+    totalDisplay = result
+    tempDisplay = ''
+
+
 })
 
 clearAll.addEventListener('click', () => {
-    total.textContent = ''
-    operations.textContent = ''
+    total.textContent = 0
+    operations.textContent = 0
     tempDisplay = ""
     totalDisplay = ''
     total.innerText = ''
